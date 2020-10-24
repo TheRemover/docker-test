@@ -4,9 +4,8 @@ WORKDIR /app
 
 COPY src .
 
-RUN apt-get update && apt-get install --no-install-recommends --yes python3
+RUN apt-get update && apt-get install --no-install-recommends --yes python3 python3-pip
 
-RUN python3 -m pip install update 
-RUN python3 -m pip install -r requirements.txt
+RUN pip3 install -r requirements.txt
 
 CMD ["python", "test.py"]
