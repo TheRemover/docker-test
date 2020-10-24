@@ -1,0 +1,1 @@
+![Build Container](https://github.com/TheRemover/docker-test/workflows/Build%20Container/badge.svg)
