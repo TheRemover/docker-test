@@ -8,6 +8,10 @@ jobs:
   main:
     runs-on: ubuntu-latest
     steps:
+      - name: Set tag var
+        id: vars
+        run: echo ::set-output name=docker_tag::$(echo ${GITHUB_REF} | cut -d'/' -f3)-${GITHUB_SHA}
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 
@@ -25,12 +29,14 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: theremover/github-test:latest
+          tags: |
+            theremover/github-test:latest
+            github-test:$@{{ steps.vars.outputs.docker_tag }}
 
       - name: Scan with Phonito Security
         uses: phonito/phonito-scanner-action@master
         with:
-          image: theremover/github-test:latest
+          image: github-test:$@{{ steps.vars.outputs.docker_tag }}
           phonito-token: ${{ secrets.PHONITO_TOKEN }}
 
       - name: Image digest
