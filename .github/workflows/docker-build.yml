@@ -31,12 +31,12 @@ jobs:
           push: true
           tags: |
             theremover/github-test:latest
-            github-test:$@{{ steps.vars.outputs.docker_tag }}
+            github-test:${{ steps.vars.outputs.docker_tag }}
 
       - name: Scan with Phonito Security
         uses: phonito/phonito-scanner-action@master
         with:
-          image: github-test:$@{{ steps.vars.outputs.docker_tag }}
+          image: github-test:${{ steps.vars.outputs.docker_tag }}
           phonito-token: ${{ secrets.PHONITO_TOKEN }}
 
       - name: Image digest
