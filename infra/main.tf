@@ -5,6 +5,16 @@ terraform {
       version = "~> 2.70"
     }
   }
+
+  backend "remote" {
+    hostname = "app.terraform.io"
+    organization = "techbytesecurity"
+
+    workspaces {
+      name = "fargate-test"
+    }
+  }
+
 }
 
 module "ecs-fargate-task-definition" {
